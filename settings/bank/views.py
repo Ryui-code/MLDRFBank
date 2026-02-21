@@ -101,8 +101,8 @@ class BankAPIView(views.APIView):
             data = serializer.validated_data
 
             features = build_features(data)
-            scaled_data = scaler.transform([features])
 
+            scaled_data = scaler.transform([features])
             predict = model.predict(scaled_data)[0]
             prob = model.predict_proba(scaled_data)[0][1]
 
@@ -115,5 +115,4 @@ class BankAPIView(views.APIView):
                 {'data': BankSerializer(bank_data).data},
                 status=status.HTTP_200_OK
             )
-
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
